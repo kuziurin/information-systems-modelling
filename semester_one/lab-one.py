@@ -19,6 +19,8 @@ import seaborn as sns
 NUMBERS_COUNT = 1000  # Количество случайных чисел.
 RANGES_COUNT = 12  # Количество интервалов (групп распределения).
 
+Ranges = Dict[int, Dict[str, float]]
+
 
 def get_random_nums(count: int) -> List[float]:
     """Получить случайные числа."""
@@ -44,17 +46,12 @@ def get_x_squared(ranges: Dict, n: int) -> float:
     )
 
 
-def get_ranges(nums: List[float], ranges_count: int) -> None:
+def get_ranges(nums: List[float], ranges_count: int) -> Ranges:
     """Получить распределение по ranges_count группам (интервалам).
-
-    Note:
-        По итогу вычислений выводится гистограмма и графики соответствия статистической
-        и теоретической плотностей. График статистической плотности соответствует
-        гистограмме.
 
     Args:
         nums: Список чисел.
-        ranges_count: Количество групп распределения.
+        ranges_count: Количество групп (интервалов) распределения.
 
     """
     min_value = min(nums)
@@ -92,18 +89,37 @@ def get_ranges(nums: List[float], ranges_count: int) -> None:
             # Get p_theor
             ranges[k]["p_theor"] = get_p_theor(x)
 
-    df_full = pd.DataFrame([{**v} for v in ranges.values()])
-    pprint(df_full)
-
     print(f"Numbers count: {len(nums)}")
     print(f"Counters sum: {sum(v['count'] for v in ranges.values())}")
 
+    return ranges
+
+
+def check_x_squared(ranges: Ranges, ranges_count: int) -> None:
+    """Проверка порогового значения критерия согласия Пирсона.
+
+    Args:
+        ranges: Данные распределённых групп (интервалов).
+        ranges_count: Количество групп (интервалов) распределения.
+    """
     # Get X^2
     x_squared = get_x_squared(ranges, ranges_count)
     print(f"X^2: {x_squared}\nCorrect: {x_squared <= 24.7}\n")
 
+
+def display_plots(ranges: Ranges) -> None:
+    """Построение и отображение гистограммы и графиков соответствия статистической
+    и теоретической плотностей. График статистической плотности соответствует
+    гистограмме.
+
+    Args:
+        ranges: Данные распределённых групп (интервалов).
+    """
+    # Get dataframe from dict values
+    df_full = pd.DataFrame([{**v} for v in ranges.values()])
+    pprint(df_full)
+
     # Plot with Seaborn
-    df = pd.DataFrame.from_dict({"nums": get_random_nums(NUMBERS_COUNT)})
     sns.barplot(x=df_full["x_avg"], y=df_full["p_stat"])
     plt.show()
 
@@ -114,7 +130,9 @@ def get_ranges(nums: List[float], ranges_count: int) -> None:
 
 
 def main():
-    get_ranges(get_random_nums(NUMBERS_COUNT), RANGES_COUNT)
+    ranges = get_ranges(get_random_nums(NUMBERS_COUNT), RANGES_COUNT)
+    check_x_squared(ranges, RANGES_COUNT)
+    display_plots(ranges)
 
 
 if __name__ == "__main__":
