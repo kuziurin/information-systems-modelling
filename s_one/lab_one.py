@@ -68,8 +68,7 @@ def get_ranges(nums: List[float], ranges_count: int) -> Ranges:
     range_delta = (max_value - min_value) / ranges_count
     boundaries = [min_value + range_delta * count for count in range(ranges_count + 1)]
 
-    pprint(f"{min_value=}")
-    pprint(f"{max_value=}")
+    print(f"\n{min_value=}\n{max_value=}")
     print("\nBoundaries (Xmin...Xmax):")
     pprint(boundaries)
     print()
@@ -85,6 +84,9 @@ def get_ranges(nums: List[float], ranges_count: int) -> Ranges:
             if num < boundaries[idx]:
                 ranges[idx]["count"] += 1
                 break
+
+        if num == max_value:
+            ranges[12]["count"] += 1
 
     for k, v in ranges.copy().items():
         # Get p_stat
