@@ -47,12 +47,21 @@ def get_x_squared(ranges: Dict, n: int) -> float:
 
 
 def get_ranges(nums: List[float], ranges_count: int) -> Ranges:
-    """Получить распределение по ranges_count группам (интервалам).
+    """Получить распределение по группам (интервалам) в количестве ranges_count.
 
     Args:
         nums: Список чисел.
         ranges_count: Количество групп (интервалов) распределения.
 
+    Returns:
+        Словарь вида:
+        {
+            Индекс: {
+                p_stat: Статистическая плотность распределения,
+                p_theor: Теоретическая плотность распределения,
+                x_avg: Значение x в середине интервала,
+            }
+        }
     """
     min_value = min(nums)
     max_value = max(nums)
