@@ -16,7 +16,13 @@ from typing import List, Tuple
 
 import pandas as pd
 
-from lab_one import RANGES_COUNT, get_random_nums, get_ranges, check_x_squared
+from lab_one import (
+    RANGES_COUNT,
+    check_x_squared,
+    display_plots,
+    get_random_nums,
+    get_ranges,
+)
 
 
 NUMBERS_COUNT = 200
@@ -70,13 +76,15 @@ def get_event_times(delta_values: List[float]) -> EventTimes:
 
 def main():
     time_deltas = get_random_nums(NUMBERS_COUNT)
-    events_times = get_event_times(time_deltas)
+    event_times = get_event_times(time_deltas)
 
     # show_result_dataframe(events_times)
-    show_result_table(events_times)
+    show_result_table(event_times)
     del time_deltas[0]
 
-    check_x_squared(get_ranges(time_deltas, RANGES_COUNT), RANGES_COUNT)
+    ranges = get_ranges(time_deltas, RANGES_COUNT)
+    check_x_squared(ranges, RANGES_COUNT)
+    display_plots(ranges)
 
 
 if __name__ == "__main__":
