@@ -27,7 +27,6 @@ from lab_one import (
 
 NUMBERS_COUNT = 200
 
-
 EventTimes = List[Tuple[int, float, float]]
 
 
@@ -62,14 +61,14 @@ def get_event_times(delta_values: List[float]) -> EventTimes:
     Returns:
         Список кортежей (индекс, дельта времени, момент времени)
     """
-    event_time = 0
-    idx = 0
+    delta_values = delta_values.copy()
     delta_values.insert(0, 0)
+    event_time = 0
     event_times = []
-    for time_delta in delta_values:
+
+    for idx, time_delta in enumerate(delta_values):
         event_time += time_delta
         event_times.append((idx, time_delta, event_time))
-        idx += 1
 
     return event_times
 
@@ -80,7 +79,6 @@ def main():
 
     # show_result_dataframe(events_times)
     show_result_table(event_times)
-    del time_deltas[0]
 
     ranges = get_ranges(time_deltas, RANGES_COUNT)
     check_x_squared(ranges, RANGES_COUNT)
