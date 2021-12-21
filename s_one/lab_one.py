@@ -2,7 +2,8 @@
 Получить последовательность из N=1000 реализаций случайной величины x, распределенной
 по закону Рэлея.
 
-a = сигма^2 = 1.
+a = сигма^2 = 1
+Пороговое значение критерия согласия Пирсона = 24.7
 """
 
 import math
@@ -18,6 +19,7 @@ import seaborn as sns
 
 NUMBERS_COUNT = 1000  # Количество случайных чисел.
 RANGES_COUNT = 12  # Количество интервалов (групп распределения).
+PIRSON_CRIT = 24.7
 
 Ranges = Dict[int, Dict[str, float]]
 
@@ -115,7 +117,7 @@ def check_x_squared(ranges: Ranges, ranges_count: int) -> None:
     """
     # Get X^2
     x_squared = get_x_squared(ranges, ranges_count)
-    print(f"X^2: {x_squared}\nCorrect: {x_squared <= 24.7}\n")
+    print(f"X^2: {x_squared}\nCorrect: {x_squared <= PIRSON_CRIT}\n")
 
 
 def display_plots(ranges: Ranges) -> None:

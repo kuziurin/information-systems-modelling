@@ -9,7 +9,8 @@
 
 Закон Рэлея.
 
-a = сигма^2 = 1.
+a = сигма^2 = 1
+Пороговое значение критерия согласия Пирсона = 24.7
 """
 from pprint import pprint
 from typing import List, Tuple
