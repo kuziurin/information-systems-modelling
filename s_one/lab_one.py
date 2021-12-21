@@ -54,8 +54,8 @@ def get_x_squared(ranges: Dict, ranges_count: int, numbers_count: int) -> float:
         X^2 (Хи квадрат).
     """
     return sum(
-        ((ranges[k]["count"] / numbers_count) - ranges[k]["p_theor"])
-        ** 2 / ranges[k]["p_theor"]
+        ((ranges[k]["count"] / numbers_count) - ranges[k]["p_theor"]) ** 2
+        / ranges[k]["p_theor"]
         for k in range(1, ranges_count + 1)
     )
 
@@ -122,7 +122,9 @@ def get_ranges(nums: List[float], ranges_count: int) -> Ranges:
     return ranges
 
 
-def check_x_squared(ranges: Ranges, ranges_count: int, numbers_count: int, pirson_crit: float) -> None:
+def check_x_squared(
+    ranges: Ranges, ranges_count: int, numbers_count: int, pirson_crit: float
+) -> None:
     """Проверка порогового значения критерия согласия Пирсона.
 
     Args:
