@@ -60,6 +60,25 @@ def get_x_squared(ranges: Dict, ranges_count: int, numbers_count: int) -> float:
     )
 
 
+def check_x_squared(
+    ranges: Ranges, ranges_count: int, numbers_count: int, pirson_crit: float
+) -> None:
+    """Проверка порогового значения критерия согласия Пирсона.
+
+    Args:
+        ranges: Данные распределённых групп (интервалов):
+            теоретическая плотность p_theor,
+            статистическая плотность p_stat,
+            середина интервала X.
+        ranges_count: Количество групп (интервалов) распределения.
+        numbers_count: Общее количество чисел.
+        pirson_crit: Пороговое значение критерия согласия Пирсона.
+    """
+    # Get X^2
+    x_squared = get_x_squared(ranges, ranges_count, numbers_count)
+    print(f"X^2: {x_squared}\nCorrect: {x_squared <= pirson_crit}\n")
+
+
 def get_ranges(nums: List[float], ranges_count: int) -> Ranges:
     """Получить распределение по группам (интервалам) в количестве ranges_count.
 
@@ -120,25 +139,6 @@ def get_ranges(nums: List[float], ranges_count: int) -> Ranges:
     print(f"Counters sum: {sum(v['count'] for v in ranges.values())}")
 
     return ranges
-
-
-def check_x_squared(
-    ranges: Ranges, ranges_count: int, numbers_count: int, pirson_crit: float
-) -> None:
-    """Проверка порогового значения критерия согласия Пирсона.
-
-    Args:
-        ranges: Данные распределённых групп (интервалов):
-            теоретическая плотность p_theor,
-            статистическая плотность p_stat,
-            середина интервала X.
-        ranges_count: Количество групп (интервалов) распределения.
-        numbers_count: Общее количество чисел.
-        pirson_crit: Пороговое значение критерия согласия Пирсона.
-    """
-    # Get X^2
-    x_squared = get_x_squared(ranges, ranges_count, numbers_count)
-    print(f"X^2: {x_squared}\nCorrect: {x_squared <= pirson_crit}\n")
 
 
 def display_plots(ranges: Ranges) -> None:
