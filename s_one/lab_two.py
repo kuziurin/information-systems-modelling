@@ -18,6 +18,7 @@ from typing import List, Tuple
 import pandas as pd
 
 from lab_one import (
+    PIRSON_CRIT,
     RANGES_COUNT,
     check_x_squared,
     display_plots,
@@ -82,7 +83,7 @@ def main():
     show_result_table(event_times)
 
     ranges = get_ranges(time_deltas, RANGES_COUNT)
-    check_x_squared(ranges, RANGES_COUNT)
+    check_x_squared(ranges, RANGES_COUNT, NUMBERS_COUNT, PIRSON_CRIT)
     display_plots(ranges)
 
 
