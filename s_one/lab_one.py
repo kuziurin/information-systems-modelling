@@ -29,9 +29,20 @@ def get_random_nums(count: int) -> List[float]:
     return [math.sqrt(-2 * math.log(1 - random())) for _ in range(count)]
 
 
-def get_p_stat(ranges: Dict[int, Any], k: int, range_delta: float) -> float:
-    """Получить статистическую вероятность попадания случайной величины в интервал."""
-    return (ranges[k]["count"] / 1000) / range_delta
+def get_p_stat(ranges: Dict[int, Any], k: int, nums_count: int, range_delta: float) -> float:
+    """Получить статистическую вероятность попадания случайной величины в интервал.
+
+        Args:
+        ranges: Данные распределённых групп (интервалов):
+            теоретическая плотность p_theor,
+            статистическая плотность p_stat,
+            середина интервала X.
+        k: Индекс интервала.
+        nums_count: Общее количество чисел.
+        range_delta: Длина интервала.
+
+    """
+    return (ranges[k]["count"] / nums_count) / range_delta
 
 
 def get_p_theor(x: float) -> float:
